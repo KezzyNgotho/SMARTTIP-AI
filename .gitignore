@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Hardhat artifacts in token project
+smart-tip-token/artifacts/
+smart-tip-token/cache/
+smart-tip-token/node_modules/
+smart-tip-token/.env

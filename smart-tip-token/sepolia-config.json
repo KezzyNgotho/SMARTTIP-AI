@@ -1,0 +1,37 @@
+{
+  "network": {
+    "name": "Ethereum Sepolia Testnet",
+    "chainId": 11155111,
+    "rpcUrl": "https://sepolia.infura.io/v3/YOUR_INFURA_KEY",
+    "rpcAlt": "https://rpc.sepolia.org",
+    "blockExplorer": "https://sepolia.etherscan.io"
+  },
+  "token": {
+    "name": "SmartTip Token",
+    "symbol": "STT",
+    "decimals": 18,
+    "contractAddress": "0x9333Cfe4Ad586e3450a3234D24F03131b8FBD9C2",
+    "deployed": "2026-03-21",
+    "deployer": "0xBAF150E65998967bd1AeAB4f593420D9fA4F9229"
+  },
+  "tipping": {
+    "enabled": true,
+    "supportedTokens": ["STT"],
+    "defaultToken": "STT",
+    "minimumTip": "0.01",
+    "maximumSingleTip": "100",
+    "dailyLimit": "1000"
+  },
+  "wallet": {
+    "type": "WDK-EVM",
+    "network": "sepolia",
+    "gasPriceMultiplier": 1.1,
+    "maxGasPrice": "100"
+  },
+  "features": {
+    "realTipping": true,
+    "dryRunMode": false,
+    "autoTipEnabled": true,
+    "budgetTracking": true
+  }
+}

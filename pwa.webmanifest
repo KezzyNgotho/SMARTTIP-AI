@@ -1,0 +1,26 @@
+{
+  "name": "SmartTip DApp",
+  "short_name": "SmartTip",
+  "description": "AI + rule-based micro tipping assistant for creator platforms.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f7fb",
+  "theme_color": "#0ea5a6",
+  "icons": [
+    {
+      "src": "/icon16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    }
+  ]
+}
