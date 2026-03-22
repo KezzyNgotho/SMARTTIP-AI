@@ -1,11 +1,13 @@
-# SmartTip DApp
+# SmartTip Autonomous Agent
 
-SmartTip is a Chrome Extension + React dashboard that watches supported creator platforms, evaluates engagement signals with an agent pipeline, and executes blockchain micro-tips on Ethereum Sepolia.
+SmartTip is an autonomous tipping agent system delivered through a Chrome Extension + React dashboard. It continuously watches supported creator platforms, reasons over live engagement signals through a capability-based agent pipeline, and executes blockchain micro-tips on Ethereum Sepolia.
+
+It is not just a static DApp UI. SmartTip includes autonomous sensing, decisioning, guardrails, pacing, and execution loops.
 
 ## What This Demo Shows
 
-- Real platform monitoring (YouTube, Rumble, Twitch, TikTok)
-- Agent-based tip decisioning (quality, scoring, guardrails, pacing, explainability)
+- Autonomous platform monitoring (YouTube, Rumble, Twitch, TikTok)
+- Autonomous agent-based tip decisioning (quality, scoring, guardrails, pacing, explainability)
 - Wallet-driven token transfers (STT on Sepolia)
 - Live dashboard visibility (watch state, signal counts, tip history, latest tx hash)
 
@@ -68,6 +70,85 @@ SmartTip is a Chrome Extension + React dashboard that watches supported creator 
 - Live detection status block
 - Platform monitoring grid
 - Latest transaction hash with explorer link
+
+## System Structure
+
+### Layered Structure
+
+1. Presentation Layer
+- React UI for dashboard, settings, history, and overlay
+- Extension popup entrypoint and web dashboard view
+
+2. Extension Runtime Layer
+- Content script runs on supported creator platforms
+- Background service worker coordinates events, decisions, and transfers
+
+3. Agent Decision Layer
+- Capability-based decision pipeline (sense -> score -> guardrails -> pacing -> decide -> explain)
+- Supports local heuristic policy and optional cloud LLM policy
+
+4. Wallet + Blockchain Layer
+- WDK EVM wallet integration for transfer execution
+- Sepolia network targeting
+- STT ERC-20 token as the default demo tipping asset
+
+5. Persistence Layer
+- Chrome local storage / localStorage fallback
+- Stores budgets, settings, wallet metadata, and tip history
+
+### Runtime Event Flow
+
+1. Platform page loads -> content script initializes.
+2. Content script detects video/live state and engagement signals.
+3. Signals are sent to background (`SMARTTIP_ENGAGEMENT_UPDATE`).
+4. Background invokes agent decision pipeline.
+5. Guardrails validate budget + recipient wallet.
+6. If approved, wallet transfer executes on Sepolia.
+7. Tip result is saved to history + reflected in dashboard.
+
+### Folder Structure (High-Level)
+
+```text
+smarttip-dapp/
+  public/
+    manifest.json                # Chrome MV3 manifest
+    icon16.png, icon48.png, icon128.png
+
+  scripts/
+    prepare-extension.mjs        # Copies manifest/icons into dist
+
+  src/
+    agent/
+      capabilities/              # scoring, quality, pacing, explainability
+      runner.js                  # capability registration + orchestration
+      orchestrator.js            # Events -> Chains -> Tools -> Actions
+
+    components/
+      Dashboard.jsx              # tabs: dashboard/settings/history
+      Overlay.jsx
+      Settings.jsx               # standalone settings component (optional)
+
+    pages/
+      DashboardPage.jsx
+      LandingPage.jsx
+
+    wallet/
+      wallet.js                  # WDK integration + transfer execution
+      storage.js                 # settings/history persistence
+      agentLogic.js              # compatibility bridge to agent layer
+      llmClient.js               # optional cloud LLM client
+
+    background.js                # service worker controller
+    contentScript.js             # platform signal collector
+    App.jsx                      # routes + shell
+
+  smart-tip-token/
+    contracts/SmartTipToken.sol  # STT contract (AccessControl roles)
+    scripts/deploy.js            # Sepolia deployment script
+    hardhat.config.js
+
+  README.md
+```
 
 ## Quick Start
 
